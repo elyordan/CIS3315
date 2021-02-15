@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="98dp"
         android:layout_marginBottom="34dp"
         android:drawableStart="@drawable/ic_baseline_email"
@@ -65,6 +65,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRegister" />
 
@@ -73,7 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="98dp"
         android:layout_marginBottom="40dp"
         android:drawableStart="@drawable/ic_baseline_security"
@@ -95,7 +96,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="98dp"
         android:layout_marginBottom="56dp"
         android:drawableStart="@drawable/ic_baseline_security"
@@ -125,11 +126,46 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextPasswordConfirmation" />
 
     <TextView
-        android:id="@+id/errorTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/userTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUsername"
+        app:layout_constraintStart_toStartOf="@+id/editTextUsername"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmail"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+
+    <TextView
+        android:id="@+id/passTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+    <TextView
+        android:id="@+id/passConfirmTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="@+id/editTextPasswordConfirmation"
         app:layout_constraintHorizontal_bias="0.493"
