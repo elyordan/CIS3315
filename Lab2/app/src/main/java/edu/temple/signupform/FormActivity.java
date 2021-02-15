@@ -22,6 +22,33 @@ public class FormActivity extends AppCompatActivity {
     private TextView passConfirmTextView;
     private Button btnRegister;
 
+    public static boolean hasText(EditText editText,TextView textview) {
+
+        String text = editText.getText().toString().trim();
+        editText.setError(null);
+
+        // length 0 means there is no text
+        if (text.length() == 0) {
+            textview.setTextColor(Color.RED);
+            textview.setText("The field can not be blank!");
+            return false;
+        } else {
+            textview.setVisibility(View.GONE);
+        }
+
+        return true;
+    }
+
+    public boolean Validate() {
+
+        boolean check = true;
+        if (!hasText(inputUsername, userTextView)) check = false;
+        if (!hasText(inputEmail, emailTextView)) check = false;
+        if (!hasText(inputPassword, passTextView)) check = false;
+        if (!hasText(inputPasswordConfirmation, passConfirmTextView)) check = false;
+        return check;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,40 +69,19 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String USERNAME = inputUsername.getText().toString();
-                String EMAIL = inputUsername.getText().toString();
-                String PASSWORD = inputUsername.getText().toString();
-                String PASSWORDCONFIRM = inputUsername.getText().toString();
+                String PASSWORD = inputPassword.getText().toString();
+                String PASSWORDCONFIRM = inputPasswordConfirmation.getText().toString();
 
-                //Toast.makeText(FormActivity.this, "Yes it is working!", Toast.LENGTH_LONG ).show();
-
-                if (USERNAME.isEmpty()) {
-                    userTextView.setTextColor(Color.RED);
-                    userTextView.setText("Username can not be blank!");
-                } else {
-                    userTextView.setVisibility(View.GONE);
-                }
-                if (EMAIL.toString().isEmpty()) {
-                    emailTextView.setTextColor(Color.RED);
-                    emailTextView.setText("Email can not be blank!");
-                } else {
-                    emailTextView.setVisibility(View.GONE);
-                }
-                if (PASSWORD.toString().isEmpty()) {
-                    passTextView.setTextColor(Color.RED);
-                    passTextView.setText("Password can not be blank!");
-                } else {
-                    passTextView.setVisibility(View.GONE);
-                }
-                if (PASSWORDCONFIRM.toString().isEmpty()) {
-                    passConfirmTextView.setTextColor(Color.RED);
-                    passConfirmTextView.setText("Password Confirmation can not be blank!");
-                } else {
-                    passConfirmTextView.setVisibility(View.GONE);
-                }
-
+                if(Validate()) {
+                    if (PASSWORD.equals(PASSWORDCONFIRM)) {
+                        Toast.makeText(FormActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(FormActivity.this, "Sorry passwords do not match, try again", Toast.LENGTH_LONG ).show();
+                    }
             }
         });
+
+
 
 
     }
