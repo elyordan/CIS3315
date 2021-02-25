@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 public class ImageActivity extends AppCompatActivity {
 
     Spinner spinner;
@@ -20,8 +22,17 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] carNamesArray = new String[]{"Buggati Chiron", "Lamborghini Huracan", "La Ferrari",
-                "Nissan GTR", "Porsche GT3","Mercedes AMG" };
+        ArrayList carNamesArray = new ArrayList<String>();
+        carNamesArray.add("Buggati Chiron");
+        carNamesArray.add("Lamborghini Huracan");
+        carNamesArray.add("La Ferrari");
+        carNamesArray.add("Nissan GTR");
+        carNamesArray.add("Porsche GT3");
+        carNamesArray.add("Mercedes AMG");
+
+//        String[] carNamesArray = new String[]{"Buggati Chiron", "Lamborghini Huracan", "La Ferrari",
+//                "Nissan GTR", "Porsche GT3","Mercedes AMG" };
+
         int[] carResIds = new int[]{R.drawable.chiron, R.drawable.huracan, R.drawable.laferrari,
                 R.drawable.gtr, R.drawable.gt3, R.drawable.amg};
 
