@@ -8,10 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class ImageActivity extends AppCompatActivity {
 
-    ListView listView;
+    Spinner spinner;
     ImageView imageView;
 
     @Override
@@ -19,28 +20,30 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] carArray = new String[]{"Buggati Chiron", "Lamborghini Huracan", "La Ferrari",
+        String[] carNamesArray = new String[]{"Buggati Chiron", "Lamborghini Huracan", "La Ferrari",
                 "Nissan GTR", "Porsche GT3","Mercedes AMG" };
         int[] carResIds = new int[]{R.drawable.chiron, R.drawable.huracan, R.drawable.laferrari,
                 R.drawable.gtr, R.drawable.gt3, R.drawable.amg};
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, carArray);
+        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, carArray);
+        CarAdapter adapter = new CarAdapter(this, carNamesArray, carResIds);
+        spinner.setAdapter(adapter);
 
-        listView = findViewById(R.id.listView);
+        spinner = findViewById(R.id.spinner);
         imageView = findViewById(R.id.imageView);
 
-        listView.setAdapter((adapter));
+        spinner.setAdapter((adapter));
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 imageView.setImageResource(carResIds[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
-
-
     }
 }
