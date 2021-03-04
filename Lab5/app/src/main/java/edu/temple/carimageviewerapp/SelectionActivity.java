@@ -27,6 +27,8 @@ public class SelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setTitle("Select Item");
+
         ArrayList carNamesArray = new ArrayList<String>();
         carNamesArray.add("Please Select a Car");
         carNamesArray.add("Buggati Chiron");
@@ -61,6 +63,7 @@ public class SelectionActivity extends AppCompatActivity {
                     launchIntent.putExtra(EXTRA_NAME, carName);
                     launchIntent.putExtra(EXTRA_NUMBER, position);
                     startActivity(launchIntent);
+                    spinner.setSelection(0);
                 }
 
             }
