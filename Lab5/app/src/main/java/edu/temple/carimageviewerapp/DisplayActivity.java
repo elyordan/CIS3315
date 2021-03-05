@@ -20,7 +20,7 @@ public class DisplayActivity extends AppCompatActivity {
         imageview = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
 
-        int[] carResIds = new int[]{R.drawable.white, R.drawable.chiron, R.drawable.huracan, R.drawable.laferrari,
+        int[] carResIds = new int[]{R.drawable.chiron, R.drawable.huracan, R.drawable.laferrari,
                 R.drawable.gtr, R.drawable.gt3, R.drawable.amg};
 
         Intent intent = getIntent();

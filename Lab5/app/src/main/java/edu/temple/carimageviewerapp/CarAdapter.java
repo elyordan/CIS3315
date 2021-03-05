@@ -1,6 +1,7 @@
 package edu.temple.carimageviewerapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static android.view.Gravity.CENTER;
 
 public class CarAdapter extends BaseAdapter {
 
@@ -40,18 +43,6 @@ public class CarAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView = new TextView(context);
-        textView.setText(items.get(position));
-
-        textView.setPadding(10,10,10,10);
-        textView.setTextSize(25);
-        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-
-        return textView;
-    }
-
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
         TextView textView;
         ImageView imageView;
 
@@ -62,12 +53,14 @@ public class CarAdapter extends BaseAdapter {
             textView = new TextView(context);
             imageView = new ImageView(context);
             textView.setTextSize(20);
-            textView.setPadding(10,10,10,10);
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            textView.setTextColor(Color.BLACK);
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.addView(imageView);
             linearLayout.addView(textView);
-            imageView.getLayoutParams().height = 150;
-            imageView.getLayoutParams().width = 150;
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.getLayoutParams().height = 320;
+            imageView.getLayoutParams().width = 320;
         } else {
             linearLayout = (LinearLayout) convertView;
             imageView = (ImageView) linearLayout.getChildAt(0);

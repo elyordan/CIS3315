@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Car Image Viewer App</string>
+    <string name="textviewTitle">Please Select a Car</string>
 </resources>
