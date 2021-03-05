@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import static android.view.Gravity.CENTER;
+import static android.view.Gravity.CENTER_HORIZONTAL;
 
 public class CarAdapter extends BaseAdapter {
 
@@ -44,31 +46,33 @@ public class CarAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView;
-        ImageView imageView;
 
         LinearLayout linearLayout;
 
         if(convertView == null){
             linearLayout = new LinearLayout(context);
             textView = new TextView(context);
-            imageView = new ImageView(context);
+
+            //TextView Code
+            textView.setGravity(CENTER);
             textView.setTextSize(20);
-            textView.setTextColor(Color.BLACK);
-            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView.setTextColor(Color.WHITE);
+
+            //Layaout Code
             linearLayout.setOrientation(LinearLayout.VERTICAL);
-            linearLayout.addView(imageView);
             linearLayout.addView(textView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.getLayoutParams().height = 320;
-            imageView.getLayoutParams().width = 320;
+
+            //ImageView Code
+            textView.getLayoutParams().height = 350;
+            textView.getLayoutParams().width = 350;
+
         } else {
             linearLayout = (LinearLayout) convertView;
-            imageView = (ImageView) linearLayout.getChildAt(0);
-            textView = (TextView) linearLayout.getChildAt(1);
+            textView = (TextView) linearLayout.getChildAt(0);
         }
 
-        imageView.setImageResource(carImage[position]);
         textView.setText(items.get(position));
+        textView.setBackgroundResource(carImage[position]);
 
         return linearLayout;
     }
