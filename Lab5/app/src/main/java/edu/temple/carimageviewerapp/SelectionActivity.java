@@ -18,11 +18,8 @@ public class SelectionActivity extends AppCompatActivity {
     public static final String EXTRA_NAME = "edu.temple.carimageviewerapp.EXTRA_NAME";
     public static final String EXTRA_NUMBER = "edu.temple.carimageviewerapp.EXTRA_NUMBER";
 
-    Spinner spinner;
     ImageView imageView;
     GridView gridView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,38 +42,12 @@ public class SelectionActivity extends AppCompatActivity {
 
         CarAdapter adapter = new CarAdapter(this, carNamesArray, carResIds);
 
-        spinner = findViewById(R.id.spinner);
         gridView = findViewById(R.id.gridView);
-
-
-        spinner.setAdapter(adapter);
         gridView.setAdapter(adapter);
 
         Intent launchIntent = new Intent (SelectionActivity.this, DisplayActivity.class);
 
 
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                if (position == 0){
-//
-//                } else {
-//
-//                    String carName = carNamesArray.get(position).toString();
-//                    launchIntent.putExtra(EXTRA_NAME, carName);
-//                    launchIntent.putExtra(EXTRA_NUMBER, position);
-//                    startActivity(launchIntent);
-//                    spinner.setSelection(0);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

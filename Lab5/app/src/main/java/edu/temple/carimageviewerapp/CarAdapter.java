@@ -2,6 +2,7 @@ package edu.temple.carimageviewerapp;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,18 +54,18 @@ public class CarAdapter extends BaseAdapter {
             linearLayout = new LinearLayout(context);
             textView = new TextView(context);
 
-            //TextView Code
-            textView.setGravity(CENTER);
-            textView.setTextSize(20);
-            textView.setTextColor(Color.WHITE);
-
             //Layaout Code
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.addView(textView);
 
-            //ImageView Code
+            //TextView Code
+            textView.setGravity(CENTER);
+            textView.setTextSize(20);
+            textView.setTextColor(Color.WHITE);
+            textView.setTypeface(null, Typeface.BOLD);
             textView.getLayoutParams().height = 350;
             textView.getLayoutParams().width = 350;
+            textView.setPadding(8, 16, 16, 16);
 
         } else {
             linearLayout = (LinearLayout) convertView;
