@@ -1,6 +1,4 @@
-# CIS3515
-
-## LAB 5
+# CIS3515 LAB 5
 
 ## Requirements
 
