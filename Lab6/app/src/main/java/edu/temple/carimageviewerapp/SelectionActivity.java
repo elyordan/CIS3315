@@ -3,11 +3,14 @@ package edu.temple.carimageviewerapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 
 public class SelectionActivity extends AppCompatActivity {
@@ -17,6 +20,7 @@ public class SelectionActivity extends AppCompatActivity {
 
     ImageView imageView;
     GridView gridView;
+    ArrayList<String> carNamesArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +29,8 @@ public class SelectionActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.selection_activity);
 
-        ArrayList<String> carNamesArray;
-        carNamesArray = new ArrayList<>();
-        carNamesArray.add("Chiron");
-        carNamesArray.add("Huracan");
-        carNamesArray.add("LaFerrari");
-        carNamesArray.add("GTR");
-        carNamesArray.add("GT3");
-        carNamesArray.add("AMG");
-
+        Resources res = getResources();
+        Collections.addAll(carNamesArray, res.getStringArray(R.array.carNames));
 
         int[] carResIds = new int[]{R.drawable.chiron, R.drawable.huracan, R.drawable.laferrari,
                 R.drawable.gtr, R.drawable.gt3, R.drawable.amg};
