@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Car Image Viewer App</string>
+    <string name="selection_activity">Select an Item</string>
+    <string name="display_activity">Display</string>
     <string name="textviewTitle">Please Select a Car</string>
 </resources>

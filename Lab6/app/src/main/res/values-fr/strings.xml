@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Car Image Viewer App</string>
+    <string name="selection_activity">Sélectionnez un élément</string>
+    <string name="display_activity">Afficher</string>
+    <string name="textviewTitle">Veuillez sélectionner une voiture</string>
+</resources>
