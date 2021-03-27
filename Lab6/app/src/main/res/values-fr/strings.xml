@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Car Image Viewer App</string>
+    <string name="selection_activity">Sélectionnez un élément</string>
+    <string name="display_activity">Afficher</string>
+    <string name="textviewTitle">Veuillez sélectionner une voiture</string>
+    <string name="textview">TextView</string>
+    <string name="todo">TODO</string>
+    <string-array name="carNames">
+        <item>Chiron-French</item>
+        <item>Huracan-French</item>
+        <item>LaFerrari-French</item>
+        <item>GTR-French</item>
+        <item>GT3-French</item>
+        <item>AMG-French</item>
+    </string-array>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Car Image Viewer App</string>
+    <string name="selection_activity">Select an Item</string>
+    <string name="display_activity">Display</string>
+    <string name="textviewTitle">Please Select a Car</string>
+    <string name="textview">TextView</string>
+    <string name="todo">TODO</string>
+    <string-array name="carNames">
+        <item>Chiron</item>
+        <item>Huracan</item>
+        <item>LaFerrari</item>
+        <item>GTR</item>
+        <item>GT3</item>
+        <item>AMG</item>
+    </string-array>
+</resources>

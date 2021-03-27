@@ -27,6 +27,7 @@ public class SelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //ArrayList
         ArrayList carNamesArray = new ArrayList<String>();
         carNamesArray.add("Please Select a Car");
         carNamesArray.add("Buggati Chiron");
