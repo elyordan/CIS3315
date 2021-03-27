@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="book_titles">
+        <item>The Winner Stands Alone</item>
+        <item>Don Quixote</item>
+        <item>The Knight in Rusty Armor</item>
+        <item>The Journey of Not Knowing</item>
+        <item>The Alchemist</item>
+        <item>THE PROPHET</item>
+        <item>PILLARS OF SALT</item>
+        <item>ONE HUNDRED YEARS OF SOLITUDE</item>
+        <item>THE SECRET</item>
+        <item>The Devil and Miss Prym</item>
+    </string-array>
+    <string-array name="book_authors">
+        <item>Paulo Coelho</item>
+        <item>Miguel de Cervantes</item>
+        <item>Robert Fisher</item>
+        <item>Julie Benezet</item>
+        <item>Paulo Coelho</item>
+        <item>KAHLIL GIBRAN</item>
+        <item>FADIA FAQIR</item>
+        <item>GABRIEL GARCÍA MÁRQUEZ</item>
+        <item>RHONDA BYRNE</item>
+        <item>Paulo Coelho</item>
+    </string-array>
+</resources>
