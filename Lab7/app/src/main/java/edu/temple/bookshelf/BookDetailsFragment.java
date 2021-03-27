@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 /**
@@ -17,7 +16,7 @@ import android.widget.TextView;
  */
 public class BookDetailsFragment extends Fragment {
 
-    Book book;
+    private Book book;
     TextView title;
     TextView author;
 
@@ -30,8 +29,7 @@ public class BookDetailsFragment extends Fragment {
         return new BookDetailsFragment();
     }
 
-    public static BookDetailsFragment newInstance(Book book)
-    {
+    public static BookDetailsFragment newInstance(Book book) {
         BookDetailsFragment my_new_fragment_details = new BookDetailsFragment();
         my_new_fragment_details.book = book;
         my_new_fragment_details.showBook(my_new_fragment_details.book);

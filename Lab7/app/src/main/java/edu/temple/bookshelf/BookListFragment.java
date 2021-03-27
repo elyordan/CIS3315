@@ -19,7 +19,7 @@ public class BookListFragment extends Fragment {
 
     private BookList bookList;
     private ListView listview;
-    private MainActivity mainactivity;
+    private MainActivity parentActivity;
 
     public BookListFragment() {
         // Required empty public constructor
@@ -32,16 +32,26 @@ public class BookListFragment extends Fragment {
     public static BookListFragment newInstance(BookList booklist, MainActivity parent) {
         BookListFragment my_new_fragment = new BookListFragment();
         my_new_fragment.bookList = booklist;
-        my_new_fragment.mainactivity = parent;
+        my_new_fragment.parentActivity = parent;
         return my_new_fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_book_list, null);
-        listview = fragmentView.findViewById(R.id.fragment_book_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View fragView = inflater.inflate(R.layout.fragment_book_list, null);
+        listview = fragView.findViewById(R.id.fragment_book_list);
         listview.setAdapter(this.bookList);
-        listview.setOnItemClickListener((parent, view, position, id) -> mainactivity.BookSelection(position));
-        return fragmentView;
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                parentActivity.BookSelection(position);
+            }
+
+        });
+        return fragView;
     }
 }

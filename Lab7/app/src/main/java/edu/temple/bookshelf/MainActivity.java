@@ -45,16 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void fillFragment(int fbooklistpos, Fragment fragment, boolean b) {
-
-        FragmentManager fragMan = getSupportFragmentManager();
-        FragmentTransaction fragtrans = fragMan.beginTransaction().replace(fbooklistpos, fragment);
-        if (b) {
-            fragtrans.addToBackStack(null);
-        }
-        fragtrans.commit();
-        fragMan.executePendingTransactions();
-    }
 
     public void BookSelection(int position) {
         Book = Booklibrary.get(position);
@@ -68,6 +58,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Details.showBook(Book);
         }
+    }
+
+    private void fillFragment(int fbooklistpos, Fragment fragment, boolean b) {
+
+        FragmentManager fragMan = getSupportFragmentManager();
+        FragmentTransaction fragtrans = fragMan.beginTransaction().replace(fbooklistpos, fragment);
+        if (b) {
+            fragtrans.addToBackStack(null);
+        }
+        fragtrans.commit();
+        fragMan.executePendingTransactions();
     }
 
     @Override
