@@ -10,18 +10,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/title_details"
             android:gravity="center_horizontal"
-            android:textSize="28sp"/>
+            android:textSize="26sp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/author_details"
             android:gravity="center_horizontal"
-            android:textSize="28sp"/>
+            android:textSize="22sp"/>
 
         <ImageView
             android:id="@+id/book_cover"
             android:layout_width="match_parent"
-            android:layout_height="625dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:contentDescription="@string/todo"
             android:gravity="center_horizontal" />
