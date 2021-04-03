@@ -34,8 +34,8 @@ public class BookListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.booklist_fragment, null);
-        listview = v.findViewById(R.id.booklist_fragment);
+        View v = inflater.inflate(R.layout.book_list_fragment, null);
+        listview = v.findViewById(R.id.book_list_fragment);
         listview.setAdapter(this.book_list);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

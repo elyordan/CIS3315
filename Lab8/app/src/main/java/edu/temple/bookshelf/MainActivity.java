@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         if (!twoWindows) {
             Fragment newFrag = BookDetailsFragment.newInstance(currentBook);
             currentDetails = (BookDetailsFragment) newFrag;
-            Fill_The_Fragment(R.id.booklist_fragment, newFrag, true);
+            Fill_The_Fragment(R.id.book_list_fragment, newFrag, true);
         } else
         {
             currentDetails.displayBook(currentBook);
@@ -121,13 +121,13 @@ public class MainActivity extends AppCompatActivity {
         Fragment list = BookListFragment.newInstance(booksCollection, this);
 
         if (twoWindows) {
-            Fill_The_Fragment(R.id.booklist_fragment, list, false);
+            Fill_The_Fragment(R.id.book_list_fragment, list, false);
             Fill_The_Fragment(R.id.details_fragment, currentDetails, false);
         } else {
             if (currentBook != null)
-                Fill_The_Fragment(R.id.booklist_fragment, currentDetails, true);
+                Fill_The_Fragment(R.id.book_list_fragment, currentDetails, true);
             else
-                Fill_The_Fragment(R.id.booklist_fragment, list, false);
+                Fill_The_Fragment(R.id.book_list_fragment, list, false);
         }
     }
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                     booksCollection = new BookList(MainActivity.this, newList);
                     Fragment list = BookListFragment.newInstance(booksCollection, MainActivity.this);
-                    Fill_The_Fragment(R.id.booklist_fragment, list, false);
+                    Fill_The_Fragment(R.id.book_list_fragment, list, false);
 
                 } catch (Exception e) {
                     e.printStackTrace();

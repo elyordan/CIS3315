@@ -16,7 +16,7 @@ public class BookSearchActivity extends Activity {
         setContentView(R.layout.book_search_activity);
 
         EditText searchEditText = findViewById(R.id.searchEditText);
-        Button searchButton = findViewById(R.id.commenceSearch);
+        Button searchButton = findViewById(R.id.startSearch);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override

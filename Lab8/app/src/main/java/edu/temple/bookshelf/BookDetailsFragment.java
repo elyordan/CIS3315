@@ -58,7 +58,7 @@ public class BookDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.details_fragment, null);
+        View view = inflater.inflate(R.layout.book_details_fragment, null);
         title = view.findViewById(R.id.title_details);
         author = view.findViewById(R.id.author_details);
         coverView = (ImageView)view.findViewById(R.id.book_cover);

@@ -18,7 +18,7 @@
         app:iconSize="32dp" />
 
     <FrameLayout
-        android:id="@+id/booklist_fragment"
+        android:id="@+id/book_list_fragment"
         android:layout_width="match_parent"
         android:layout_height="684dp"
         android:layout_below="@+id/search"

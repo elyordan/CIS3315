@@ -22,7 +22,7 @@
             app:iconGravity="textStart" />
 
         <FrameLayout
-            android:id="@+id/booklist_fragment"
+            android:id="@+id/book_list_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

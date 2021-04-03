@@ -64,7 +64,7 @@ public class BookList extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.booklist_fragment, parent, false);
+        convertView = inflater.inflate(R.layout.book_list_fragment, parent, false);
 
         TextView title = convertView.findViewById(R.id.title);
         title.setText(bookArrayList.get(position).getTitle());
