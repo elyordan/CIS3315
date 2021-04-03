@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.Fragment;
 import android.view.View;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        twoWindows = (findViewById(R.id.details_fragment) != null);
+        twoWindows = (findViewById(R.id.book_details_fragment) != null);
 
         Resources res = getResources();
         webURL = res.getString(R.string.bookURL);
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         currentDetails = BookDetailsFragment.newInstance(currentBook);
 
         if (twoWindows) {
-            Fill_The_Fragment(R.id.details_fragment, currentDetails, false);
+            Fill_The_Fragment(R.id.book_details_fragment, currentDetails, false);
         }
 
         sharedPref = this.getSharedPreferences("edu.temple.bookshelf", Context.MODE_PRIVATE);
@@ -81,14 +82,13 @@ public class MainActivity extends AppCompatActivity {
     public void Book_Selection(int position) {
         currentBook = booksCollection.get(position);
 
-        twoWindows = (findViewById(R.id.details_fragment) != null);
+        twoWindows = (findViewById(R.id.book_details_fragment) != null);
 
         if (!twoWindows) {
-            Fragment newFrag = BookDetailsFragment.newInstance(currentBook);
-            currentDetails = (BookDetailsFragment) newFrag;
-            Fill_The_Fragment(R.id.book_list_fragment, newFrag, true);
-        } else
-        {
+            BookDetailsFragment newFragment = BookDetailsFragment.newInstance(currentBook);
+            currentDetails = newFragment;
+            Fill_The_Fragment(R.id.book_list_fragment, newFragment, true);
+        } else {
             currentDetails.displayBook(currentBook);
         }
     }
@@ -110,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_main);
-        twoWindows = (findViewById(R.id.details_fragment) != null);
+        twoWindows = (findViewById(R.id.book_details_fragment) != null);
 
         onClickButtonMethod();
 
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (twoWindows) {
             Fill_The_Fragment(R.id.book_list_fragment, list, false);
-            Fill_The_Fragment(R.id.details_fragment, currentDetails, false);
+            Fill_The_Fragment(R.id.book_details_fragment, currentDetails, false);
         } else {
             if (currentBook != null)
                 Fill_The_Fragment(R.id.book_list_fragment, currentDetails, true);
@@ -131,22 +131,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                String search_Book_Term = data.getStringExtra("response");
-
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("search_Book_Term", search_Book_Term);
-                editor.commit();
-
-                UpdateListOfBooks(search_Book_Term);
-            }
-        }
-    }
 
     private void UpdateListOfBooks(String searchTerm) {
         String urlString = webURL + searchTerm;
@@ -183,5 +167,22 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue.add(jsonArrayRequest);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String search_Book_Term = data.getStringExtra("response");
+
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("search_Book_Term", search_Book_Term);
+                editor.apply();
+
+                UpdateListOfBooks(search_Book_Term);
+            }
+        }
     }
 }

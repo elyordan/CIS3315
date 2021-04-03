@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/details_fragment"
+        android:id="@+id/book_details_fragment"
         android:layout_width="0dp"
         android:layout_weight="0.5"
         android:layout_height="match_parent" >
