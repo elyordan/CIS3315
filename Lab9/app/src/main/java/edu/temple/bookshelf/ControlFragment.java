@@ -52,9 +52,8 @@ public class ControlFragment extends Fragment {
     private void playAndPause() {
         playing = !playing;
 
-        parentActivity.pause(); //Pause handles the logic for if already paused or not
+        parentActivity.pause();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +65,7 @@ public class ControlFragment extends Fragment {
         updateNowPlayingBook();
 
         Button playButton = v.findViewById(R.id.playButtom);
-        playButton.setOnClickListener(v1 -> parentActivity.playThisBook());
+        playButton.setOnClickListener(v1 -> parentActivity.playBook());
 
         Button pauseButton = v.findViewById(R.id.pauseButtom);
         pauseButton.setOnClickListener(v12 -> playAndPause());

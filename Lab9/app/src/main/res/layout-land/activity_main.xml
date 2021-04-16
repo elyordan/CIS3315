@@ -23,9 +23,15 @@
             app:iconSize="28dp" />
 
         <FrameLayout
+            android:id="@+id/fragment_control"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="6dp" />
+
+        <FrameLayout
             android:id="@+id/book_list_fragment"
             android:layout_width="match_parent"
-            android:layout_height="362dp"></FrameLayout>
+            android:layout_height="362dp" />
     </LinearLayout>
 
     <FrameLayout
