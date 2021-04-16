@@ -111,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
         //Shared prefs stored the necessary data to resume our audiobook on restart
         String bookTitle = sharedPref.getString("bookTitle", null);
 
-        if(bookTitle != null)
-        {
+        if(bookTitle != null) {
             int bookID = sharedPref.getInt("bookID", 0);
             progress = sharedPref.getInt("progress", 0);
             int bookDuration = sharedPref.getInt("bookDuration", 0);
@@ -138,10 +137,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTimerTask() {
-        timertask = new TimerTask()
-        {
-            public void run()
-            {
+        timertask = new TimerTask() {
+            public void run() {
                 seekTimeUpdate();
             }
         };
@@ -264,14 +261,13 @@ public class MainActivity extends AppCompatActivity {
         if(playBook != null)
             playing = !playing;
 
-        if(!playing)
-        {
+        if(!playing) {
             timer.cancel();
             timer.purge();
         }
     }
 
-    public void playThisBook() {
+    public void playBook() {
 
         if(currentBook == null)
             return;
@@ -321,8 +317,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupSeekBar() {
         seekbar = findViewById(R.id.seekBar);
-        seekbar.setMax(playBook.getDuration());
-        seekbar.setProgress(progress);
+
+        if(playBook != null) {
+            seekbar.setMax(playBook.getDuration());
+            seekbar.setProgress(progress);
+        }
 
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
