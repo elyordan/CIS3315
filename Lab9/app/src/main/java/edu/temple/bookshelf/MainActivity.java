@@ -13,6 +13,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.SeekBar;
 
@@ -273,9 +274,16 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("progress", 0);
         editor.apply();
 
-        createTimerTask();
+
         long delay = 2000;
-        timer.schedule(timertask, delay);
+
+        try {
+            timer.schedule(timertask, delay);
+            createTimerTask();
+        } catch (Exception e) {
+            Log.e(("This is the error: "), "error");
+        }
+
 
         audioBookService.play(audioBook.getId());
     }
