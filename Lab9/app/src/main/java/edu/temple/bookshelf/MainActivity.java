@@ -13,7 +13,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 
@@ -23,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     BookList booksCollection;
     boolean twoWindows;
     Book currentBook;
-    Book playBook;
+    Book audioBook;
     BookDetailsFragment currentDetails;
     Button searchButton;
     String webURL;
@@ -104,13 +102,10 @@ public class MainActivity extends AppCompatActivity {
         UpdateListOfBooks(search_Book_Term);
         onClickButtonMethod();
 
-        //Define our Timer Task and Timer
         createTimerTask();
         timer = new Timer("Timer");
 
-        //Shared prefs stored the necessary data to resume our audiobook on restart
         String bookTitle = sharedPref.getString("bookTitle", null);
-
         if(bookTitle != null) {
             int bookID = sharedPref.getInt("bookID", 0);
             progress = sharedPref.getInt("progress", 0);
@@ -118,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
             String bookAuthor = sharedPref.getString("bookAuthor", "");
             String bookURL = sharedPref.getString("bookURL", "");
             currentBook = new Book( bookTitle, bookAuthor, bookURL, bookID, bookDuration);
-            playBook = currentBook;
-            controlFragment.setPlayBook(playBook);
+            audioBook = currentBook;
+            controlFragment.setPlayBook(audioBook);
 
             TimerTask task = new TimerTask()
             {
@@ -127,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     playing = true;
                     setupSeekBar();
-                    audioBookService.play(playBook.getId(), progress);
+                    audioBookService.play(audioBook.getId(), progress);
                 }
             };
 
@@ -186,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
         controlFragment = ControlFragment.newInstance(this);
         Fill_The_Fragment(R.id.fragment_control, controlFragment, false);
-        controlFragment.setPlayBook(playBook);
+        controlFragment.setPlayBook(audioBook);
         setupSeekBar();
 
         twoWindows = (findViewById(R.id.book_details_fragment) != null);
@@ -254,19 +249,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public void pause() {
-        audioBookService.pause();
-
-        if(playBook != null)
-            playing = !playing;
-
-        if(!playing) {
-            timer.cancel();
-            timer.purge();
-        }
-    }
-
     public void playBook() {
 
         if(currentBook == null)
@@ -277,17 +259,17 @@ public class MainActivity extends AppCompatActivity {
 
         audioBookService.stop();
         progress = 0;
-        playBook = currentBook;
-        controlFragment.setPlayBook(playBook);
+        audioBook = currentBook;
+        controlFragment.setPlayBook(audioBook);
         setupSeekBar();
         playing = true;
 
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("bookID", playBook.getId());
-        editor.putString("bookTitle", playBook.getTitle());
-        editor.putString("bookAuthor", playBook.getAuthor());
-        editor.putString("bookURL", playBook.getCoverURL());
-        editor.putInt("bookDuration", playBook.getDuration());
+        editor.putInt("bookID", audioBook.getId());
+        editor.putString("bookTitle", audioBook.getTitle());
+        editor.putString("bookAuthor", audioBook.getAuthor());
+        editor.putString("bookURL", audioBook.getCoverURL());
+        editor.putInt("bookDuration", audioBook.getDuration());
         editor.putInt("progress", 0);
         editor.apply();
 
@@ -295,7 +277,34 @@ public class MainActivity extends AppCompatActivity {
         long delay = 2000;
         timer.schedule(timertask, delay);
 
-        audioBookService.play(playBook.getId());
+        audioBookService.play(audioBook.getId());
+    }
+
+    public void pause() {
+        audioBookService.pause();
+
+        if(audioBook != null)
+            playing = !playing;
+
+        if(!playing) {
+            timer.cancel();
+            timer.purge();
+        }
+    }
+
+    public void stop() {
+        audioBookService.stop();
+        playing = false;
+
+        audioBook = null;
+        controlFragment.setPlayBook(null);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("bookTitle", null);
+        editor.apply();
+
+        timer.cancel();
+        timer.purge();
     }
 
 
@@ -318,8 +327,8 @@ public class MainActivity extends AppCompatActivity {
     public void setupSeekBar() {
         seekbar = findViewById(R.id.seekBar);
 
-        if(playBook != null) {
-            seekbar.setMax(playBook.getDuration());
+        if(audioBook != null) {
+            seekbar.setMax(audioBook.getDuration());
             seekbar.setProgress(progress);
         }
 
@@ -342,22 +351,6 @@ public class MainActivity extends AppCompatActivity {
                 //onProgressChanged will handle this. This can do nothing.
             }
         });
-    }
-
-
-    public void stop() {
-        audioBookService.stop();
-        playing = false;
-
-        playBook = null;
-        controlFragment.setPlayBook(null);
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("bookTitle", null);
-        editor.apply();
-
-        timer.cancel();
-        timer.purge();
     }
 
 }
