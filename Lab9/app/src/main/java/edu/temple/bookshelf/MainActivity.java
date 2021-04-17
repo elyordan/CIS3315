@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seekbar;
     private int progress;
     private boolean playing;
-    private TimerTask timertask;
+    private TimerTask tTask;
     private Timer timer;
     public ServiceConnection serviceConnection;
 
@@ -67,10 +67,8 @@ public class MainActivity extends AppCompatActivity {
         Resources res = getResources();
         webURL = res.getString(R.string.bookURL);
 
-        serviceConnection = new ServiceConnection()
-        {
-            public void onServiceConnected(ComponentName className, IBinder binder)
-            {
+        serviceConnection = new ServiceConnection() {
+            public void onServiceConnected(ComponentName className, IBinder binder) {
                 audioBookService = (AudiobookService.MediaControlBinder)binder;
             }
 
@@ -133,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTimerTask() {
-        timertask = new TimerTask() {
+        tTask = new TimerTask() {
             public void run() {
                 seekTimeUpdate();
             }
@@ -277,8 +275,9 @@ public class MainActivity extends AppCompatActivity {
 
         long delay = 2000;
 
+        /* Need to use a try and catch here because if the play button is pressed while no book is being played it will crash the app */
         try {
-            timer.schedule(timertask, delay);
+            timer.schedule(tTask, delay);
             createTimerTask();
         } catch (Exception e) {
             Log.e(("This is the error: "), "error");
@@ -321,15 +320,13 @@ public class MainActivity extends AppCompatActivity {
         progress += 2;
         seekbar.setProgress(progress);
 
-
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("progress", progress);
         editor.apply();
 
-
         createTimerTask();
         long delay = 2000;
-        timer.schedule(timertask, delay);
+        timer.schedule(tTask, delay);
     }
 
     public void setupSeekBar() {
@@ -351,12 +348,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                //onProgressChanged will handle this. This can do nothing.
+                //empty method
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                //onProgressChanged will handle this. This can do nothing.
+                //empty method
             }
         });
     }
