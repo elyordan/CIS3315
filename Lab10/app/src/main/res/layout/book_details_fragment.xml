@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.temple.bookshelf.BookDetailsFragment" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_details"
+            android:gravity="center_horizontal"
+            android:textSize="26sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/author_details"
+            android:gravity="center_horizontal"
+            android:textSize="22sp"/>
+
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/todo"
+            android:gravity="center_horizontal" />
+
+
+</LinearLayout>
