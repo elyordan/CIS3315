@@ -34,6 +34,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import edu.temple.audiobookplayer.AudiobookService;
+import android.app.DownloadManager;
+import java.io.File;
+import android.net.Uri;
+import android.os.Environment;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
     private TimerTask tTask;
     private Timer timer;
     public ServiceConnection serviceConnection;
+    File bookFile;
+    DownloadManager downloadManager;
+    private final String downloadBookURL = "https://kamorris.com/lab/audlib/download.php?id=";
+    long downloadID;
+    String lastPlayedBook;
 
 
     @Override
@@ -102,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         onClickButtonMethod();
 
         createTimerTask();
-        timer = new Timer("Timer");
+
 
         String bookTitle = sharedPref.getString("bookTitle", null);
         if(bookTitle != null) {
@@ -131,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTimerTask() {
+        timer = new Timer("Timer");
         tTask = new TimerTask() {
             public void run() {
                 seekTimeUpdate();
@@ -284,7 +295,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        audioBookService.play(audioBook.getId());
+        if ( currentBook != null) {
+            Log.d("PLAY", "Now playing: " + currentBook.getTitle());
+
+            String bookFileName = currentBook.getTitle().replaceAll(" ", "_");
+            bookFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), bookFileName);
+            Log.d("FILE", "book file exists: " + bookFile.exists());
+            Log.d("FILE", (float) (bookFile.length()) / 1000000f + " MB");
+
+            if (bookFile.exists()) {
+                loadBookProgress();
+                audioBookService.play(bookFile, progress);
+                Toast.makeText(MainActivity.this, "Doing first if!",
+                        Toast.LENGTH_LONG).show();
+
+            } else {
+
+                String url = downloadBookURL + currentBook.getId();
+                downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url))
+                        .setDestinationUri(Uri.fromFile(bookFile))
+                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                        .setTitle(bookFileName);
+                downloadID = downloadManager.enqueue(request);
+
+                Log.e("Book Downloaded", "True");
+                Toast.makeText(MainActivity.this, "Doing first else!" ,
+                        Toast.LENGTH_LONG).show();
+
+                if (!playing) {
+                    audioBookService.pause();
+                } else {
+                    audioBookService.play(currentBook.getId(), progress);
+                    Toast.makeText(MainActivity.this, "Doing second else!",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+
+
     }
 
     public void pause() {
@@ -300,24 +350,60 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stop() {
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        try {
+
+            editor.putInt(audioBook.getTitle(), 0).apply();
+        } catch (Exception e) {
+            Log.e(("This is the error: "), "error");
+        }
+
+
+
+
         audioBookService.stop();
         playing = false;
 
         audioBook = null;
         controlFragment.setPlayBook(null);
 
-        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("bookTitle", null);
         editor.apply();
 
         timer.cancel();
         timer.purge();
+        progress = 0;
+        seekbar.setProgress(progress);
+
+    }
+
+    public void saveBookProgress() {
+        if (audioBook != null) {
+            int savedPosition = Math.max(0, progress - 10);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(audioBook.getTitle(), savedPosition).apply();
+            Toast.makeText(MainActivity.this, "Progress saved for " + audioBook.getTitle() + " at: " + savedPosition,
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void loadBookProgress() {
+        if (currentBook != null) {
+            progress = sharedPref.getInt(currentBook.getTitle(), 0);
+            Toast.makeText(MainActivity.this, "Progress loaded for " + currentBook.getTitle() + " at: " + progress,
+                    Toast.LENGTH_LONG).show();
+            seekTimeUpdate();
+        } else
+            Log.d("SAVE", "Selected book was null?");
     }
 
 
     public void seekTimeUpdate() {
 
         progress += 2;
+
         seekbar.setProgress(progress);
 
         SharedPreferences.Editor editor = sharedPref.edit();

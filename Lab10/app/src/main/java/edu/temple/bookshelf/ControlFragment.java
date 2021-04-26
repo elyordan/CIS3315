@@ -51,7 +51,6 @@ public class ControlFragment extends Fragment {
 
     private void playAndPause() {
         playing = !playing;
-
         parentActivity.pause();
     }
 
@@ -64,8 +63,12 @@ public class ControlFragment extends Fragment {
         currentlyPlaying = v.findViewById(R.id.nowPlaying);
         updateNowPlayingBook();
 
+
         Button playButton = v.findViewById(R.id.playButtom);
-        playButton.setOnClickListener(v1 -> parentActivity.playBook());
+        playButton.setOnClickListener(v1 -> {
+                    parentActivity.saveBookProgress();
+                    parentActivity.playBook();
+        });
 
         Button pauseButton = v.findViewById(R.id.pauseButtom);
         pauseButton.setOnClickListener(v12 -> playAndPause());
