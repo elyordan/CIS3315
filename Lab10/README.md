@@ -14,7 +14,7 @@ Create a new GitHub Branch and update your BookShelf app with new features.
 
 - [x] Application keeps track of books returned from last search, even after activity restarts 15%
 
-- [ ] Book progress is saved when a book is paused 10%
+- [x] Book progress is saved when a book is paused 10%
 
 - [x] Book progress is saved if a new book is started while another book was previously playing 10%
 

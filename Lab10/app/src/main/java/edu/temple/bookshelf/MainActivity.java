@@ -306,8 +306,6 @@ public class MainActivity extends AppCompatActivity {
             if (bookFile.exists()) {
                 loadBookProgress();
                 audioBookService.play(bookFile, progress);
-                Toast.makeText(MainActivity.this, "Doing first if!",
-                        Toast.LENGTH_LONG).show();
 
             } else {
 
@@ -319,16 +317,11 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle(bookFileName);
                 downloadID = downloadManager.enqueue(request);
 
-                Log.e("Book Downloaded", "True");
-                Toast.makeText(MainActivity.this, "Doing first else!" ,
-                        Toast.LENGTH_LONG).show();
-
                 if (!playing) {
                     audioBookService.pause();
                 } else {
                     audioBookService.play(currentBook.getId(), progress);
-                    Toast.makeText(MainActivity.this, "Doing second else!",
-                            Toast.LENGTH_LONG).show();
+
                 }
             }
 
@@ -340,13 +333,18 @@ public class MainActivity extends AppCompatActivity {
     public void pause() {
         audioBookService.pause();
 
-        if(audioBook != null)
+        if(audioBook != null) {
             playing = !playing;
+            saveBookProgress();
+        }
 
         if(!playing) {
             timer.cancel();
             timer.purge();
         }
+
+        if(playing)
+            seekTimeUpdate();
     }
 
     public void stop() {
@@ -359,9 +357,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(("This is the error: "), "error");
         }
-
-
-
 
         audioBookService.stop();
         playing = false;
@@ -384,16 +379,14 @@ public class MainActivity extends AppCompatActivity {
             int savedPosition = Math.max(0, progress - 10);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(audioBook.getTitle(), savedPosition).apply();
-            Toast.makeText(MainActivity.this, "Progress saved for " + audioBook.getTitle() + " at: " + savedPosition,
-                    Toast.LENGTH_LONG).show();
+            Log.d("SAVE", "Progress saved for " + audioBook.getTitle() + " at: " + savedPosition);
         }
     }
 
     public void loadBookProgress() {
         if (currentBook != null) {
             progress = sharedPref.getInt(currentBook.getTitle(), 0);
-            Toast.makeText(MainActivity.this, "Progress loaded for " + currentBook.getTitle() + " at: " + progress,
-                    Toast.LENGTH_LONG).show();
+            Log.d("LOAD", "Progress loaded for " + currentBook.getTitle() + " at: " + progress);
             seekTimeUpdate();
         } else
             Log.d("SAVE", "Selected book was null?");
